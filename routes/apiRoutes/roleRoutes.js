@@ -7,7 +7,7 @@ router.get('/roles', (req, res) => {
                 AS department_name
                 FROM roles
                 LEFT JOIN departments
-                ON roles.department_id = departments.id`;
+                ON roles.department_id = departments.id;`;
     db.query(sql, (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
