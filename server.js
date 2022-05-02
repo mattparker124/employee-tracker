@@ -33,7 +33,7 @@ const mainMenu = () => {
         {
             type: 'list',
             name: 'selectedTask',
-            message: 'What would you like to do?',
+            message: 'What would you like to do? (Press Ctrl+C to quit at any time)',
             choices: ['View departments', 'View roles', 'View employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee']
         }
     ]).then(taskData => {
@@ -209,7 +209,6 @@ const mainMenu = () => {
             return [`http://localhost:3001/api/employee/${taskInfo.employeeId}`, 'PUT', taskInfo.updateRole];
         }
     }).then(taskReturn => {
-        console.log(taskReturn)
         if (taskReturn[1] === 'GET') {
             return axios.get(taskReturn[0]);
         } else if (taskReturn[1] === 'POST' && taskReturn[0] === `http://localhost:3001/api/department`) {
@@ -235,7 +234,8 @@ const mainMenu = () => {
             });
         }
     }).then(taskResponse => {
-        console.log(taskResponse.data.data);
+        console.table(taskResponse.data.data);
+        mainMenu();
     }).catch(error => {
         console.error(error);
     })
